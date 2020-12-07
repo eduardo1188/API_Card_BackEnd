@@ -9,13 +9,18 @@ const home = (req, res) => {
 
 const getTasks = async (req, res) => {
   console.log(req.session.userId)
-  const tasks = await Task.find().lean();
+  const tasks = await Task.find({user: res.locals.user}).lean();
   res.render('tasks/tasksView', { tasks });
 }
 
 const createTask = async (req, res) => {
-  const task = new Task(req.body);
+  const task = new Task({
+    title: req.body.title,
+    description: req.body.description,
+    user: res.locals.user
+  });
   await task.save();
+  req.flash('success','Tasks was successfully create')
   res.redirect('/tasks');
 }
 
@@ -23,6 +28,7 @@ const createTask = async (req, res) => {
 const deleteTask = async (req, res) => {
   const { id } = req.params;
   await Task.findByIdAndDelete(id);
+  req.flash('success','Tasks was successfully deleted')
   res.redirect('/tasks');
 }
 
