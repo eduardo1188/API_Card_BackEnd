@@ -9,7 +9,7 @@ const dotenv = require('dotenv')
 
 const path = require('path');
 
-const tasksRoutes = require('./routes/tasksRouter');
+const tasksRoutes = require('./routes/cardsRouter');
 const userRoutes = require('./routes/userRouter');
 
 dotenv.config();

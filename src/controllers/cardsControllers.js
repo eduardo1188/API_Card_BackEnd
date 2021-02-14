@@ -1,10 +1,9 @@
-const Task = require('../models/taskModel');
-const tasks = require('../routes/tasksRouter');
+const Task = require('../models/cardsModel');
+const tasks = require('../routes/cardsRouter');
 
 
 const home = (req, res) => {
-  console.log("req.session.userId", req.session.userId)
-  res.render('home');
+  // Que se de colocar en este controlador
 }
 
 const getTasks = async (req, res) => {
@@ -48,6 +47,5 @@ const editTask = async (req, res) => {
 
 
 module.exports = {
-
   home, getTasks, createTask, deleteTask, getTask, editTask,
 }

@@ -3,7 +3,7 @@ const tasks = Router();
 const isAuth = require('../helpers/isAuthenticated');
 
 
-const { home, getTasks, createTask, deleteTask, getTask, editTask } = require('../controllers/tasksControllers');
+const { home, getTasks, createTask, deleteTask, getTask, editTask } = require('../controllers/cardsControllers');
 
 
 
