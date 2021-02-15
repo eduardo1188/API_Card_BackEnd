@@ -1,51 +1,48 @@
-const Task = require('../models/cardsModel');
-const tasks = require('../routes/cardsRouter');
+const Card = require('../models/cardsModel');
+const cards = require('../routes/cardsRouter');
 
 
-const home = (req, res) => {
-  // Que se de colocar en este controlador
-}
 
-const getTasks = async (req, res) => {
+const getCards = async (req, res) => {
   console.log(req.session.userId)
-  const tasks = await Task.find({user: res.locals.user}).lean();
-  res.render('tasks/tasksView', { tasks });
+  const cards = await Card.find({user: res.locals.user}).lean();
+  //res.render('cards/cardsView', { cards });
 }
 
-const createTask = async (req, res) => {
-  const task = new Task({
+const createCard = async (req, res) => {
+  const card = new Card({
     title: req.body.title,
     description: req.body.description,
     user: res.locals.user
   });
-  await task.save();
-  req.flash('success','Tasks was successfully create')
-  res.redirect('/tasks');
+  await card.save();
+  req.flash('success','cards was successfully create')
+  res.redirect('/cards');//Preguntar a Shymmy si es necesario este redirect
 }
 
 
-const deleteTask = async (req, res) => {
+const deleteCard = async (req, res) => {
   const { id } = req.params;
-  await Task.findByIdAndDelete(id);
-  req.flash('success','Tasks was successfully deleted')
-  res.redirect('/tasks');
+  await Card.findByIdAndDelete(id);
+  req.flash('success','cards was successfully deleted')
+  res.redirect('/cards');
 }
 
-const getTask = async (req, res) => {
+const getCard = async (req, res) => {
   const { id } = req.params;
-  const task = await Task.findById(id);
-  res.render('tasks/editForm', task);
+  const card = await Card.findById(id);
+  //res.render('cards/editForm', card);
 }
 
 
-const editTask = async (req, res) => {
+const editCard = async (req, res) => {
   const { title, description } = req.body
   const { id } = req.params;
-  await Task.findByIdAndUpdate(id, { title, description });
-  res.redirect('/tasks');
+  await Card.findByIdAndUpdate(id, { title, description });
+  res.redirect('/cards');
 }
 
 
 module.exports = {
-  home, getTasks, createTask, deleteTask, getTask, editTask,
+ getCards, createCard, deleteCard, getCard, editCard,
 }

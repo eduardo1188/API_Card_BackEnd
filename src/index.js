@@ -1,5 +1,5 @@
 const express = require('express');
-const hbs = require('express-handlebars');
+//const hbs = require('express-handlebars');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
@@ -9,7 +9,7 @@ const dotenv = require('dotenv')
 
 const path = require('path');
 
-const tasksRoutes = require('./routes/cardsRouter');
+const cardsRoutes = require('./routes/cardsRouter');
 const userRoutes = require('./routes/userRouter');
 
 dotenv.config();
@@ -19,14 +19,14 @@ const app = express();
 require('./database/dbConfig');
 
 // view engine configuration
-app.set('views', path.join(__dirname, 'views'));
+/* app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', hbs({
   defaultLayout: 'main',
   layoutsDir: path.join(app.get('views'), 'layouts'),
   partialsDir: path.join(app.get('views'), 'partials'),
   extname: '.hbs'
 }));
-app.set('view engine', '.hbs');
+app.set('view engine', '.hbs'); */
 
 
 
@@ -52,7 +52,7 @@ app.use((req, res, next)=>{
 
 
 // routes
-app.use(tasksRoutes);
+app.use(cardsRoutes);
 app.use(userRoutes);
 
 

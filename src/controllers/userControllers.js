@@ -2,12 +2,13 @@ const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
 const signupUser = (req, res) => {
-  res.render('user/signupForm')
+  console.log('renderizar el form de signup')
+  //res.render('user/signupForm')
 }
 
 const loginUser = (req, res) => {
-
-  res.render('user/loginForm')
+  console.log('renderizar el form de login')
+  //res.render('user/loginForm')
 }
 
 
@@ -29,14 +30,13 @@ const createUser = async (req, res) => {
 const getUser = async (req, res) => {
   
   const { email, password } = req.body
-  console.log(req.body)
   const user = await User.findOne({ email });
   
    if (user) {
     const correctPassword = await user.passwordMatch(password)
     if (correctPassword) {
       req.session.userId = user._id;
-      res.redirect('/tasks')
+      res.redirect('/cards')
     }
     req.flash('worng','email or password was incorrect');
     res.redirect('/login')

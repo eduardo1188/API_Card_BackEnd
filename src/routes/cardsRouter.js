@@ -1,23 +1,21 @@
 const { Router } = require('express');
-const tasks = Router();
+const cards = Router();
 const isAuth = require('../helpers/isAuthenticated');
 
 
-const { home, getTasks, createTask, deleteTask, getTask, editTask } = require('../controllers/cardsControllers');
+const {getCards, createCard, deleteCard, getCard, editCard } = require('../controllers/cardsControllers');
 
 
+cards.get('/cards', isAuth, getCards);
 
-tasks.get('/', home);
+//Posiblemente no es necesario esta ruta
+cards.get('/cards/:id', isAuth, getCard);//Preguntar a Shymmy como sería el controlador del edit
 
-tasks.get('/tasks', isAuth, getTasks);
+cards.post('/cards', isAuth, createCard);
 
-tasks.get('/tasks/:id', isAuth, getTask);
+cards.delete('/cards/:id', isAuth, deleteCard);
 
-tasks.post('/tasks', isAuth, createTask);
-
-tasks.delete('/tasks/:id', isAuth, deleteTask);
-
-tasks.put('/tasks/:id', isAuth, editTask)
+cards.put('/cards/:id', isAuth, editCard)
 
 
-module.exports = tasks;
+module.exports = cards;
